@@ -15,11 +15,13 @@ app.set 'view engine', 'jade'
 # Get root_path return index view
 app.get '/', (req, resp) -> 
   resp.render 'index'
-app.get /videos/, require('vid-streamer')(
+vid = require('vid-streamer')
+app.get /videos/, vid
+vid.settings(
   mode:"Development"
   forceDownload:false
   random:false
-  rootFolder:dir
+  rootFolder:dir + '/'
   rootPath:"videos/"
   server:"VidStreamer.js/0.1.2"
 )
